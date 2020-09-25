@@ -1,0 +1,50 @@
+# Write your code here
+acc_created = {}
+def create_acc():
+    from random import randint
+    global acc_created
+    major_industry_identity = 400000
+    acc_identifier = randint(100000000, 100000000)
+    check_sum = randint(1, 10)
+    c_pin = randint(1000, 9999)
+
+    c_card_no = '{}{}{}'.format(major_industry_identity, acc_identifier, check_sum)
+
+    acc_created.update({c_card_no: c_pin})
+    return "Your card has been created \nYour card number:\n{}\nYour card PIN:\n{}".format(c_card_no, c_pin)
+
+def log_into_acc():
+    global acc_created
+    print("Enter your card number:")
+    print(acc_created)
+    card_no = int(input())
+    print(card_no)
+    print("Enter your PIN:")
+    pin = int(input())
+    card_nos = {str(card_no):pin}
+    if all(k in acc_created and acc_created[k] == card_nos[k] for k in card_nos):
+        print("You have successfully logged in!")
+        print("1. Balance\n2. Log out \n0. Exit")
+        user__ = int(input())
+        if user__ == 1:
+            print('Balance: {}'.format(0))
+        elif user__ == 2:
+            print("You have successfully logged out!")
+        elif user__ == 0:
+            print('Bye!')
+    else:
+        print("Wrong card number or PIN!")
+        login()
+
+
+def login():
+    print('1. Create an account \n2. Log into account \n0. Exit')
+    user_ = int(input())
+    if user_ == 1:
+        print(create_acc())
+        login()
+    if user_ == 2:
+        log_into_acc()
+    if user_ == 0:
+        exit()
+login()
